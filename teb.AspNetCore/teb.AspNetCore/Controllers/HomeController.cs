@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using teb.AspNetCore.Models;
+using teb.AspNetCore.Repository.Interfaces;
 
 namespace teb.AspNetCore.Controllers
 {
@@ -13,14 +14,19 @@ namespace teb.AspNetCore.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IProdutoRepository _produtoRepository;
+
+        public HomeController(ILogger<HomeController> logger, IProdutoRepository produtoRepository)
         {
             _logger = logger;
+            _produtoRepository = produtoRepository;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var listProdutos = _produtoRepository.CarregarTodos();
+
+            return View(listProdutos);
         }
 
         public IActionResult Privacy()
