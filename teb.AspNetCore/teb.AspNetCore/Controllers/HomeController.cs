@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using teb.AspNetCore.Models;
 using teb.AspNetCore.Repository.Interfaces;
+using teb.AspNetCore.ViewModel;
 
 namespace teb.AspNetCore.Controllers
 {
@@ -16,23 +17,26 @@ namespace teb.AspNetCore.Controllers
 
         private readonly IProdutoRepository _produtoRepository;
 
-        public HomeController(ILogger<HomeController> logger, IProdutoRepository produtoRepository)
+        private readonly ICategoriaRepository _categoriaRepository;
+
+        public HomeController(ILogger<HomeController> logger, IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository)
         {
             _logger = logger;
             _produtoRepository = produtoRepository;
+            _categoriaRepository = categoriaRepository;
         }
 
         public IActionResult Index()
         {
-            var listProdutos = _produtoRepository.CarregarTodos();
+            var lista = new ListarProdutoViewModel();
 
-            return View(listProdutos);
+            lista.Categorias.AddRange(_categoriaRepository.CarregarTodos());
+
+            lista.Produtos.AddRange(_produtoRepository.CarregarTodos());
+
+            return View(lista);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

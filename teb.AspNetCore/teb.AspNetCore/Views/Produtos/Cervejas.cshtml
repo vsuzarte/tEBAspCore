@@ -1,0 +1,13 @@
+﻿@model List<Produto>
+@using teb.AspNetCore.Models;
+
+@{
+    ViewData["Title"] = "Cervejas";
+}
+
+<div class="row">
+    @foreach (var produto in Model)
+    {
+        <partial name="_CardProdutoPartial" for="@produto" />
+    }
+</div>

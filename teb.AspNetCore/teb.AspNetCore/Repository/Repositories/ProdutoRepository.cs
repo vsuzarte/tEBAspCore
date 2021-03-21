@@ -26,7 +26,7 @@ namespace teb.AspNetCore.Repository.Repositories
 
         public IEnumerable<Produto> CarregarProdutosPorCategoria(int idCategoria)
         {
-            return _barContext.Produtos.Include(c => c.Categoria).Where(p => p.CategoriaId == idCategoria).OrderBy(p => p.Categoria.Nome);
+            return _barContext.Produtos.Include(c => c.Categoria).Where(p => p.CategoriaId == idCategoria).OrderBy(p => p.Nome).ToList();
         }
 
         public IEnumerable<Produto> CarregarTodos()

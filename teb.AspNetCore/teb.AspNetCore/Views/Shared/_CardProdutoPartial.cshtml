@@ -1,0 +1,20 @@
+﻿@model Produto
+
+<div class="col-md-4">
+    <figure class="card card-product">
+        <div class="img-wrap"><img src="@Model.Imagem"></div>
+        <figcaption class="info-wrap">
+            <h4 class="title">@Model.Nome</h4>
+            <p class="desc">@Model.Descricao</p>
+            <div class="rating-wrap">
+                <div class="label-rating">@Model.QuantidadeEstoque disponíveis.</div>
+            </div> <!-- rating-wrap.// -->
+        </figcaption>
+        <div class="bottom-wrap">
+            <a href="" class="btn btn-sm btn-primary float-right">Adicionar Carrinho</a>
+            <div class="price-wrap h5">
+                <span class="price-new">R$ @Model.Preco</span>
+            </div> <!-- price-wrap.// -->
+        </div> <!-- bottom-wrap.// -->
+    </figure>
+</div> <!-- col // -->

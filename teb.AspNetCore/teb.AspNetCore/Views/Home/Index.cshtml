@@ -1,38 +1,21 @@
-﻿@model List<Produto>
-@using teb.AspNetCore.Models;
+﻿@model ListarProdutoViewModel
+@using teb.AspNetCore.ViewModel;
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
+@foreach (var categoria in Model.Categorias)
+{
+    var produtosDaCategoria = Model.Produtos.Where(p => p.CategoriaId == categoria.Id).Take(4).OrderBy(p => p.Nome).ToList();
 
-<table class="table table-responsive">
-    <thead>
-        <tr>
-            <th>id</th>
-            <th scope="col">Nome</th>
-            <th scope="col">Preco</th>
-            <th scope="col">Descricao</th>
-            <th scope="col">Quantidade</th>
-            <th scope="col">Categoria</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var produto in Model)
-        {
-            <tr>
-                <th>@produto.Id</th>
-                <td>@produto.Nome</td>
-                <td>@produto.Preco</td>
-                <td>@produto.Descricao</td>
-                <td>@produto.QuantidadeEstoque</td>
-                <td>@produto.Categoria.Nome</td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="row">
+    <h2 class="col-12">@categoria.Nome</h2>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @foreach (var produto in produtosDaCategoria)
+    {
+        <partial name="_CardProdutoPartial" for="@produto" />
+    }
+
 </div>
+}
